@@ -1,1 +1,21 @@
-<p>manage-city-view works!</p>
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Hello card'">
+      <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group col-5">
+            <label>First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+              <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary mr-1">Register</button>
+            <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>
