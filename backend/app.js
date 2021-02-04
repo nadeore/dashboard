@@ -6,7 +6,8 @@ var cors        = require('cors');
 var mysql       = require('mysql');
 var path        = require('path');
 var user        = require('./controller/UserController');
-var connection = require('./connection');
+var master      = require('./controller/MasterController');
+var connection  = require('./connection');
 app.use(cors());
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,17 +25,14 @@ var server = app.listen(3000, "localhost", function () {
 });
 
     app.use(express.json());
-    app.use(bodyParser.json({limit: "50mb"}));
     app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
-    app.use(express.static(path.join(__dirname, 'public')));
     app.use(morgan('dev'));
     app.use(express.static(__dirname+"/dist"));
-    app.use(express.static('dist'));
 // express router
     var apiRoutes = express.Router();
     app.use('/api', apiRoutes);
     apiRoutes.post('/loginAuth', user.login);
-
+    apiRoutes.post('/addCity', master.addCity)
     // app.post( '/createUser' , function ( req , res ) {
     //     const params = {
     //         userType: "2",
@@ -47,6 +45,7 @@ var server = app.listen(3000, "localhost", function () {
     //         res.end ( JSON.stringify ( results ) );
     //     } );
     // });
+
     // app.post( '/login' , function ( req , res ) {
     //     var email=req.body.email;
     //     var password=req.body.password;

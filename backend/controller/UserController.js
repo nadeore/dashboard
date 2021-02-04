@@ -4,7 +4,7 @@ var tokenexp = '3600';
 var secret = 'mysecretkey';
 // console.log(connection);
 exports.login = function(req, res, next){
-        console.log(req.body);
+        // console.log(req.body);
         var email = req.body.username;
         var password  = req.body.password;
         // const sql = connection.format("SELECT * FROM tbl_userdata WHERE email = ?", [email]);
